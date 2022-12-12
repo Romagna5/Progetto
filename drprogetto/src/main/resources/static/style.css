@@ -1,0 +1,55 @@
+body{
+	text-align: center;
+}
+.container-fluid{
+	padding-top:10px;
+	padding-bottom:10px;
+	padding-left: 30%;
+	padding-right: 30%;
+	background-color: black;
+}
+.navbar-brand{
+	color:white;
+}
+.navbar-brand:hover{
+	color:red;
+}
+
+footer{
+	background-color:black;
+	color:white;
+	position: absolute;
+  	bottom: 0;
+  	width: 100%;
+  	height: 50px;
+}
+
+.formc{
+	margin-left:35%;
+	width: 30%;
+}
+body{
+	text-align: center;
+}
+.container-fluid{
+	padding-top:10px;
+	padding-bottom:10px;
+	padding-left: 30%;
+	padding-right: 30%;
+	background-color: black;
+}
+.navbar-brand{
+	color:white;
+}
+.navbar-brand:hover{
+	color:red;
+}
+footer{
+	background-color:black;
+	color:white;
+	position: absolute;
+  	bottom: 0;
+  	width: 100%;
+  	height: 50px;
+}
+
