@@ -1,12 +1,9 @@
 package it.domenico.drprogetto.controller;
 
-import java.sql.Time;
+import java.sql.Date;
 import java.time.LocalDate;
-import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-
-import javax.swing.JOptionPane;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -41,9 +38,27 @@ public class GreetingController {
 	
 	@GetMapping("/listapazienti")
 	public String listaPazienti(Model model) {
-		List<PazienteDottore>pazdots=pazienteDottoreRepository.findAll();
-		model.addAttribute("pazdots",pazdots);
-		LocalDate dataoggi=LocalDate.now();
+		List<PazienteDottore>tutti=pazienteDottoreRepository.findAll();
+		List<PazienteDottore>pazdots=new ArrayList<>();
+		LocalDate data=LocalDate.now();
+		Date datamo = java.sql.Date.valueOf(data);
+		int i;
+		for(i=0;i<tutti.size();i++)
+		{
+			if(tutti.get(i).getData()!=null)
+			{
+				if(tutti.get(i).getData().compareTo(datamo)==0||tutti.get(i).getData().after(datamo))
+				{
+					pazdots.add(tutti.get(i));
+				}
+			}
+		}
+		if(!pazdots.isEmpty())
+		{
+			model.addAttribute("pazdots",pazdots);
+		}
+		model.addAttribute("tutti",tutti);
+		LocalDate dataoggi=data.plusDays(1);
 		model.addAttribute("dataoggi",dataoggi);
 		return "listapazienti";
 	}
@@ -62,6 +77,13 @@ public class GreetingController {
 		pazienteRepository.save(paziente);
 		return registrazione(model);
 	}
+	
+	@RequestMapping(value="/regDottore", method=RequestMethod.POST)
+	public String regDottore(Dottore dottore, Model model) {
+		dottoreRepository.save(dottore);
+		return listaDottori(model);
+	}
+	
 	
 	@RequestMapping(value="/aggVisita", method=RequestMethod.POST)
 	public String aggVisita(Paziente paziente, Dottore dottore, Model model) {
@@ -104,25 +126,14 @@ public class GreetingController {
 		return listaPazienti(model);
 	}
 	
-	/*@RequestMapping(value="/cerca", method=RequestMethod.POST)
-	public String riContatto(Contatto contatto, Model model) {
-		String cerca=contatto.getNome();
-		List<Contatto>r_contatti = null;
-		if(!contattoRepository.findBynome(cerca).isEmpty())
-		{
-			r_contatti=contattoRepository.findBynome(cerca);
-		} else if(!contattoRepository.findBycognome(cerca).isEmpty())
-		{
-			r_contatti=contattoRepository.findBycognome(cerca);
-		}else if(!contattoRepository.findBynumeroTelefono(cerca).isEmpty())
-		{
-			r_contatti=contattoRepository.findBynumeroTelefono(cerca);
-		}
+	@RequestMapping(value="/cerca", method=RequestMethod.POST)
+	public String riContatto(String ricerca, Model model) {
 		
-		model.addAttribute("contatti",r_contatti);
-		return "listacontatti";
+		List<PazienteDottore>ricercati = pazienteDottoreRepository.FindPazVis(ricerca);
+		model.addAttribute("pazdots",ricercati);
+		return "listapazienti";
 	}
-	*/
+	
 	/*
 	@RequestMapping(value="/azione", method=RequestMethod.POST)
 	public String azione(Contatto contatto,String azione, Model model) {

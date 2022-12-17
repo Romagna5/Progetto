@@ -21,13 +21,45 @@
         <th>NOME</th>
         <th>COGNOME</th>
       </tr>
-      
       <tr th:each="dottore : ${dottori}">
       		<td th:text="${dottore.cod_fis_dot}"></td>
 	      	<td th:text="${dottore.nome_dot}"></td>
 	        <td th:text="${dottore.cognome_dot}"></td>
       </tr>
-      
+    </table>
+    
+    <h2>REGISTRA DOTTORE</h2>
+    <table>
+      <tr>
+      	<th>CODICE FISCALE</th>
+        <th>NOME</th>
+        <th>COGNOME</th>
+      </tr>
+     <tr>
+      	<form class="formc" action="regDottore" method="post">
+      		<td>
+				<div class="form-floating mb-3">
+					<input type="text" class="form-control" id="floatingInput" name="cod_fis_dot" placeholder="Inserisci codice fiscale dottore" required>
+					<label for="floatingInput">CODICE FISCALE DOTTORE</label>
+				</div>
+			</td>
+	      	<td>
+				<div class="form-floating mb-3">
+					<input type="text" class="form-control" id="floatingInput" name="nome_dot" placeholder="Inserisci nome dottore" required>
+					<label for="floatingInput">NOME DOTTORE</label>
+				</div>
+			</td>
+			<td>
+				<div class="form-floating mb-3">
+				    <input type="text" class="form-control" id="floatingInput" name="cognome_dot" placeholder="Inserisci cognome dottore" required>
+				    <label for="floatingInput">COGNOME DOTTORE</label>
+				</div>
+			</td>
+			<td>
+				<input type="submit" class="btn btn-outline-success" value="Registra">
+			</td>
+		</form>
+      </tr>
     </table>
     <footer>
 		COPYRIGHT 2022-2025 BY DOMENICO ROMAGNA

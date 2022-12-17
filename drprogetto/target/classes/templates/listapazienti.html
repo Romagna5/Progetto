@@ -33,13 +33,13 @@
         <th>ORA VISITA</th>
     	<th>
 	    	<form action="cerca" method="post">
-	    		<input type="text" name="nome_paz" placeholder="Ricerca paziente">
+	    		<input type="text" name="ricerca" placeholder="Ricerca paziente">
 	    		<input type="submit" class="btn btn-outline-secondary" value="Cerca">
 	    	</form>
     	</th>
       </tr>
       
-      <tr th:each="pazdot : ${pazdots}" th:if="${pazdot.data!=null}">
+      <tr th:each="pazdot : ${pazdots}">
       		<td th:text="${pazdot.paziente.cod_fis_paz}"></td>
 	      	<td th:text="${pazdot.paziente.nome_paz}"></td>
 	        <td th:text="${pazdot.paziente.cognome_paz}"></td>
@@ -66,15 +66,15 @@
     	</th>
       </tr>
       
-      <tr th:each="pazdot : ${pazdots}" th:if="${pazdot.data==null}">
-      		<td th:text="${pazdot.paziente.cod_fis_paz}"></td>
-	      	<td th:text="${pazdot.paziente.nome_paz}"></td>
-	        <td th:text="${pazdot.paziente.cognome_paz}"></td>
-	        <td th:text="${pazdot.paziente.dataNascita_paz}"></td>
-	        <td th:text="${pazdot.dottore.nome_dot}+' '+${pazdot.dottore.cognome_dot}"></td>
+      <tr th:each="uno : ${tutti}" th:if="${uno.data==null}">
+      		<td th:text="${uno.paziente.cod_fis_paz}"></td>
+	      	<td th:text="${uno.paziente.nome_paz}"></td>
+	        <td th:text="${uno.paziente.cognome_paz}"></td>
+	        <td th:text="${uno.paziente.dataNascita_paz}"></td>
+	        <td th:text="${uno.dottore.nome_dot}+' '+${uno.dottore.cognome_dot}"></td>
 	        <td>
 		        <form action="regvisita" method="post" >
-		        	<input type="hidden" th:value="${pazdot.id}" name="id">
+		        	<input type="hidden" th:value="${uno.id}" name="id">
 		        	<input type="date" name="data" th:value="${dataoggi}" th:min="${dataoggi}">
 		        	<select name="ora">
 		        		<option value="09:00:00">09:00</option>
